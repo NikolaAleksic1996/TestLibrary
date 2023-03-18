@@ -31,16 +31,21 @@ use Illuminate\Support\Facades\Route;
 //    ]);
 //});
 
-Route::get('/', [BookController::class, 'index'])->middleware('auth');
+//BOOKS ROUTES
+Route::get('/', [BookController::class, 'index'])->middleware(['auth', 'isLibrarian']);
 Route::post('/store', [
-    BookController::class, 'store'])->name('store')->middleware('auth');
+    BookController::class, 'store'])->name('store')->middleware(['auth', 'isLibrarian']);
 Route::get('/fetch-all', [BookController::class, 'fetchAll'])->name('fetchAll');
-Route::post('/edit', [BookController::class, 'edit'])->name('editBook')->middleware('auth');
-Route::post('/update', [BookController::class, 'update'])->name('updateBook')->middleware('auth');
-Route::delete('/delete', [BookController::class, 'delete'])->name('deleteBook')->middleware('auth');
+Route::post('/edit', [BookController::class, 'edit'])->name('editBook')->middleware(['auth', 'isLibrarian']);
+Route::post('/update', [BookController::class, 'update'])->name('updateBook')->middleware(['auth', 'isLibrarian']);
+Route::delete('/delete', [BookController::class, 'delete'])->name('deleteBook')->middleware(['auth', 'isLibrarian']);
+//BOOKS ROUTES
 
+//AUTHOR ROUTES
+Route::get('/fetch-all-authors', [\App\Http\Controllers\AuthorController::class, 'fetchAll'])->name('fetchAllAuthors');
+//AUTHOR ROUTES
 
-
+//AUTH ROUTES
 //got to registration form
 Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 //create new user
@@ -51,3 +56,8 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');;
 Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
 //login user
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
+//AUTH ROUTES
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
