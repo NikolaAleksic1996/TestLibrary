@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\Book;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('books', [
+        'heading' => 'All books',
+        'books' => Book::all()
+    ]);
+});
+
+Route::get('/books/{id}', function ($id) {
+    return view('book', [
+        'book' => Book::find($id)
+    ]);
 });
 
 Route::get('/register', [UserController::class, 'create']);
