@@ -5,12 +5,81 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        laravel: "#ef3b2d",
+                    },
+                },
+            },
+        };
+    </script>
+
     <title>Online library</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 </head>
 <body>
+<nav class="flex justify-between items-center mb-4">
+    <ul class="flex space-x-6 mr-6 text-lg">
+        @auth()
+        <li>
+            <span class="font-bold uppercase">Welcome {{auth()->user()->name}} {{auth()->user()->last_name}}</span>
+        </li>
+        <li>
+            <a href="/" class="hover:text-laravel"
+            ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Books</a
+            >
+        </li>
+        <li>
+            <a href="/authors" class="hover:text-laravel"
+            ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Authors</a
+            >
+        </li>
+        <li>
+            <form class="inline" method="POST" action="/logout">
+                @csrf
+                <button type="submit">
+                    <i class="fa-solid fa-door-closed"></i> Logout
+                </button>
+            </form>
+        </li>
+        @else
+        <li>
+            <a href="/reader-books" class="hover:text-laravel"
+            ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Books Search</a
+            >
+        </li>
+        <li>
+            <a href="/register" class="hover:text-laravel"
+            ><i class="fa-solid fa-user-plus"></i> Register</a
+            >
+        </li>
+        <li>
+            <a href="/login" class="hover:text-laravel"
+            ><i class="fa-solid fa-arrow-right-to-bracket"></i>
+                Login</a
+            >
+        </li>
+        @endauth
+    </ul>
+</nav>
 
 {{-- add new book modal start --}}
 <div class="modal fade" id="addBookModal" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -28,11 +97,17 @@
                         <div class="col-lg">
                             <label for="title">Title</label>
                             <input type="text" name="title" class="form-control" placeholder="Title" required>
+                            @error('title')
+                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
                     <div class="my-2">
                         <label for="number">Book number</label>
                         <input type="number" name="number" class="form-control" placeholder="Book number" required>
+                        @error('number')
+                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="my-2">
                         <label for="description">Description</label>

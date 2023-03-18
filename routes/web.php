@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Models\Book;
 use Illuminate\Support\Facades\Route;
@@ -14,6 +15,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Common Resource Routes:
+// index - Show all listings
+// show - Show single listing
+// create - Show form to create new listing
+// store - Store new listing
+// edit - Show form to edit listing
+// update - Update listing
+// destroy - Delete listing
 
 //Route::get('/', function () {
 //    return view('books', [
@@ -22,23 +31,23 @@ use Illuminate\Support\Facades\Route;
 //    ]);
 //});
 
-Route::get('/', [\App\Http\Controllers\BookController::class, 'index']);
-Route::post('/store', [\App\Http\Controllers\BookController::class, 'store'])->name('store');
-Route::get('/fetch-all', [\App\Http\Controllers\BookController::class, 'fetchAll'])->name('fetchAll');
-Route::post('/edit', [\App\Http\Controllers\BookController::class, 'edit'])->name('editBook');
-Route::post('/update', [\App\Http\Controllers\BookController::class, 'update'])->name('updateBook');
-Route::delete('/delete', [\App\Http\Controllers\BookController::class, 'delete'])->name('deleteBook');
+Route::get('/', [BookController::class, 'index'])->middleware('auth');
+Route::post('/store', [
+    BookController::class, 'store'])->name('store')->middleware('auth');
+Route::get('/fetch-all', [BookController::class, 'fetchAll'])->name('fetchAll');
+Route::post('/edit', [BookController::class, 'edit'])->name('editBook')->middleware('auth');
+Route::post('/update', [BookController::class, 'update'])->name('updateBook')->middleware('auth');
+Route::delete('/delete', [BookController::class, 'delete'])->name('deleteBook')->middleware('auth');
 
 
 
-
-//Route::get('/books/{id}', function ($id) {
-//    return view('book', [
-//        'book' => Book::find($id)
-//    ]);
-//});
-
-Route::get('/register', [UserController::class, 'create']);
-
+//got to registration form
+Route::get('/register', [UserController::class, 'create'])->middleware('guest');
 //create new user
 Route::post('/users', [UserController::class, 'register']);
+//logout
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');;
+//show login form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+//login user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);

@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
@@ -16,12 +17,16 @@ class BookController extends Controller
     }
 
     public function store(Request $request) {
-        $bookData = [
-            'title' => $request->title,
-            'number' => $request->number,
-            'description' => $request->description
-        ];
-
+//        $bookData = [
+//            'title' => $request->title,
+//            'number' => $request->number,
+//            'description' => $request->description
+//        ];
+        $bookData = $request->validate([
+            'title' => ['required'],
+            'number' => ['required', Rule::unique('books', 'number')]
+        ]);
+        $bookData['description'] = $request->description;
         Book::create($bookData);
         return response()->json([
             'status' => 200
