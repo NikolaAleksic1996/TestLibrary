@@ -10,6 +10,11 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'description',
+        'number',
+    ];
 
     public static function find($id) {
         $books = self::all();
