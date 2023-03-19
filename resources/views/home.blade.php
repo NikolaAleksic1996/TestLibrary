@@ -14,7 +14,12 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{ __('Reader dashboard!') }}
+
+                    <div>
+                        <label>List of Books</label>
+                    </div>
+
                 </div>
             </div>
         </div>
