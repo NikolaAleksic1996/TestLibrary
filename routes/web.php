@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Models\Book;
@@ -16,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Common Resource Routes:
-// index - Show all listings
-// show - Show single listing
-// create - Show form to create new listing
-// store - Store new listing
-// edit - Show form to edit listing
-// update - Update listing
-// destroy - Delete listing
+// index - Show all data
+// show - Show single data
+// create - Show form to create new data
+// store - Store new data
+// edit - Show form to edit data
+// update - Update data
+// destroy - Delete data
 
 //Route::get('/', function () {
 //    return view('books', [
@@ -42,7 +43,9 @@ Route::delete('/delete', [BookController::class, 'delete'])->name('deleteBook')-
 //BOOKS ROUTES
 
 //AUTHOR ROUTES
-Route::get('/fetch-all-authors', [\App\Http\Controllers\AuthorController::class, 'fetchAll'])->name('fetchAllAuthors');
+Route::get('/authors', [AuthorController::class, 'getAll']);
+Route::post('/storeAuthor', [AuthorController::class, 'store'])->name('flush');
+Route::get('/fetch-all-authors', [AuthorController::class, 'fetchAll'])->name('fetchAll');
 //AUTHOR ROUTES
 
 //AUTH ROUTES

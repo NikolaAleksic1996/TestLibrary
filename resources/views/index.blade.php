@@ -46,7 +46,7 @@
             >
         </li>
         <li>
-            <a href="/authors" class="hover:text-laravel"
+            <a href="/fetch-all-authors" class="hover:text-laravel"
             ><i class="fa-solid fa-arrow-right-to-bracket"></i>
                 Authors</a
             >
@@ -113,6 +113,14 @@
                         <label for="description">Description</label>
                         <input type="text" name="description" class="form-control" placeholder="Description" required>
                     </div>
+                    <div class="my-2">
+                        <select id="authors" name="author_id">
+                            <option selected disabled>Select author</option>
+                            @foreach($authors as $author)
+                                <option value={{$author->id}}>{{$author->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -150,6 +158,14 @@
                     <div class="my-2">
                         <label for="description">Description</label>
                         <input type="text" name="description" id="description" class="form-control" placeholder="Description" required>
+                    </div>
+                    <div class="my-2">
+                        <select id="authors" name="author_id">
+                            <option selected disabled>Select author</option>
+                            @foreach($authors as $author)
+                                <option value={{$author->id}}>{{$author->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -209,7 +225,7 @@
                     )
                     fetchAllBooks();
                 }
-                $("#add_book_btn").text('Add Employee');
+                $("#add_book_btn").text('Add Book');
                 $("#add_book_form")[0].reset();
                 $("#addBookModal").modal('hide');
             }

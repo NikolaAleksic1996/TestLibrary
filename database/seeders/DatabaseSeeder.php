@@ -16,16 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
          User::factory(5)->create();
-         Author::factory()->create([
-             'name' => fake()->name(),
-             'last_name' => fake()->lastName(),
-             'picture' => fake()->text(30),
-         ]);
-         Book::factory()->create([
-             'title' => fake()->title(),
-             'description' => fake()->text(),
-             'number' => fake()->numberBetween(1,1000),
-         ]);
+         Author::factory(3)->create();
+//         Book::factory()->create([
+//             'title' => fake()->title(),
+//             'description' => fake()->text(),
+//             'number' => fake()->numberBetween(1,1000),
+//         ]);
 
     }
 }
