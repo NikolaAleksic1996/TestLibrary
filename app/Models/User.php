@@ -17,8 +17,10 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    //sta cu ja da popunjavam iz forme to su ta polja u fillable
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'password',
     ];

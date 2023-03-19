@@ -1,3 +1,45 @@
+
+
+```
+clone project 
+```
+
+```
+composer install
+```
+```
+configure database
+```
+```
+check env file
+```
+```
+run php artisan migrate
+```
+
+``
+pokrenuti sidere sledecom comandom, kreiraju se nekoliko librariana i nekoliko
+readera sa random rolom i nekoliko authora
+``
+```
+php artisan migrate:refresh --seed
+```
+
+``
+nakon toga pokrennuti server
+``
+```
+php artisan serve
+```
+``
+pokrenuri development server u drugi terminal zbog toga sto se koriste asseti sa Vite komandom
+``
+```
+npm run dev
+
+```
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
