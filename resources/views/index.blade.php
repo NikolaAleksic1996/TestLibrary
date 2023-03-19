@@ -37,7 +37,7 @@
     <ul class="flex space-x-6 mr-6 text-lg">
         @auth()
         <li>
-            <span class="font-bold uppercase">Welcome Librarian {{auth()->user()->name}} {{auth()->user()->last_name}}</span>
+            <span class="font-bold uppercase">Welcome {{auth()->user()->name}} {{auth()->user()->last_name}}</span>
         </li>
         <li>
             <a href="/" class="hover:text-laravel"
